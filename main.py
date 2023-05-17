@@ -1,6 +1,7 @@
 import tkinter
 from PIL import Image, ImageTk
 from cryptography.fernet import Fernet
+from tkinter import messagebox
 
 storage_encrpyt = []
 storage_masterkey = []
@@ -22,15 +23,13 @@ def save_encrypt():
     masterkey_entry.delete(0,tkinter.END)
 
     if input_title == "" or masterkey == "":
-        print_label.config(text="Enter Title and Master Key!",font=FONT,pady=10)
-        print_label.pack()
+        messagebox.showwarning(message="Enter Title and Master Key!")
 
     else:
         storage_encrpyt.clear()
         storage_genkey.clear()
         storage_masterkey.clear()
-        print_label.config(text="Successful!",font=FONT,pady=10)
-        print_label.pack()
+        messagebox.showwarning(message="Successful!")
         with open('mysecret.txt', "a+", encoding='UTF-8') as f:
             f.write(input_title + '\n' + encrypt_string.decode() + '\n')
         with open('mysecret.txt', "r", encoding='UTF-8') as f:
@@ -88,19 +87,18 @@ def decrypt():
                 original_str = f.decrypt(b.encode()).decode()
                 secret_textbox.delete("1.0", tkinter.END)
                 secret_textbox.insert(tkinter.END, f"{original_str}")
-                print_label.config(text="Successful!", font=FONT, pady=10)
-                print_label.pack()
+                messagebox.showwarning(message="Successful!")
 
             else:
-                print_label.config(text="Unmatched Master Key!", font=FONT, pady=10)
-                print_label.pack()
+                messagebox.showwarning(message="Unmatched Master Key!")
         else:
-            print_label.config(text="Encrypting string not found!", font=FONT, pady=10)
-            print_label.pack()
+            messagebox.showwarning(message="Encrypting string not found!")
+
 
     except:
         print_label.config(text="File not found!", font=FONT, pady=10)
         print_label.pack()
+        messagebox.showwarning(message="File not found!")
 
 window = tkinter.Tk()
 window.title("Secret Notes")
