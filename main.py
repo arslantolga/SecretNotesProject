@@ -35,7 +35,7 @@ def save_encrypt():
         with open('mysecret.txt', "r", encoding='UTF-8') as f:
             f.seek(0)
             icerik = f.read()
-            kelimeler = icerik.split()
+            kelimeler = icerik.split("\n")
             for indeks, value in enumerate(kelimeler):
                 if indeks % 2 != 0:
                     storage_encrpyt.append(value)
@@ -45,7 +45,7 @@ def save_encrypt():
         with open('venv/Scripts/passwords.txt', "r", encoding='UTF-8') as f:
             f.seek(0)
             icerik = f.read()
-            kelimeler = icerik.split()
+            kelimeler = icerik.split("\n")
             for indeks, value in enumerate(kelimeler):
                 if indeks % 2 == 0:
                     storage_masterkey.append(value)
@@ -59,11 +59,12 @@ def decrypt():
     storage_encrpyt.clear()
     storage_genkey.clear()
     storage_masterkey.clear()
+
     try:
         with open('mysecret.txt', "r", encoding='UTF-8') as f:
             f.seek(0)
             icerik = f.read()
-            kelimeler = icerik.split()
+            kelimeler = icerik.split("\n")
             for indeks, value in enumerate(kelimeler):
                 if indeks % 2 != 0:
                     storage_encrpyt.append(value)
@@ -71,7 +72,7 @@ def decrypt():
         with open('venv/Scripts/passwords.txt', "r", encoding='UTF-8') as f:
             f.seek(0)
             icerik = f.read()
-            kelimeler = icerik.split()
+            kelimeler = icerik.split("\n")
             for indeks, value in enumerate(kelimeler):
                 if indeks % 2 == 0:
                     storage_masterkey.append(value)
@@ -94,10 +95,7 @@ def decrypt():
         else:
             messagebox.showwarning(message="Encrypting string not found!")
 
-
     except:
-        print_label.config(text="File not found!", font=FONT, pady=10)
-        print_label.pack()
         messagebox.showwarning(message="File not found!")
 
 window = tkinter.Tk()
